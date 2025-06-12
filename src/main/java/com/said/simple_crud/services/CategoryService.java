@@ -15,6 +15,6 @@ public class CategoryService {
     }
 
     public Category insert(Category entity) {
-        return repository.save(entity);
+        return repository.saveAndFlush(entity);
     }
 }
