@@ -29,4 +29,14 @@ public class ProductService {
         Optional<Product> entity = repository.findById(id);
         return entity.get();
     }
+
+    public Product update(Long id, Product obj) {
+        Product entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(Product entity, Product obj) {
+        entity.setName(obj.getName());
+    }
 }

@@ -2,6 +2,7 @@ package com.said.simple_crud.services;
 
 import com.said.simple_crud.infrastructure.entities.Category;
 import com.said.simple_crud.infrastructure.repositories.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +29,15 @@ public class CategoryService {
     public Category findById(Long id) {
         Optional<Category> entity = repository.findById(id);
         return entity.get();
+    }
+
+    public Category update(Long id, Category obj) {
+            Category entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        }
+
+    private void updateData(Category entity, Category obj) {
+        entity.setName(obj.getName());
     }
 }
