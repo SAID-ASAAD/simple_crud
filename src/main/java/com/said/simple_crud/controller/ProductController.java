@@ -1,15 +1,14 @@
 package com.said.simple_crud.controller;
 
+import com.said.simple_crud.infrastructure.entities.Category;
 import com.said.simple_crud.infrastructure.entities.Product;
 import com.said.simple_crud.services.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -28,4 +27,17 @@ public class ProductController {
                 .buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).body(entity);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        List<Product> products = service.findAll();
+        return ResponseEntity.ok().body(products);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
+        Product entity = service.findById(id);
+        return ResponseEntity.ok().body(entity);
+    }
+
 }

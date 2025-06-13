@@ -4,6 +4,9 @@ import com.said.simple_crud.infrastructure.entities.Category;
 import com.said.simple_crud.infrastructure.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CategoryService {
 
@@ -16,5 +19,14 @@ public class CategoryService {
 
     public Category insert(Category entity) {
         return repository.saveAndFlush(entity);
+    }
+
+    public List<Category> findAll() {
+        return repository.findAll();
+    }
+
+    public Category findById(Long id) {
+        Optional<Category> entity = repository.findById(id);
+        return entity.get();
     }
 }
